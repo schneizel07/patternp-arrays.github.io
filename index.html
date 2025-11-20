@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algo Patterns & C++ Solutions</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --code-bg: #1e1e1e;
+            --accent-two-pointers: #fecaca;
+            --accent-merge: #bfdbfe;
+            --accent-sorting: #bbf7d0;
+            --accent-sliding: #ddd6fe;
+            --accent-prefix: #fef08a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        header h1 { margin: 0; font-size: 2.5rem; }
+        header p { opacity: 0.9; }
+
+        nav {
+            background: #1e293b;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            overflow-x: auto;
+            white-space: nowrap;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        nav a:hover { background: rgba(255,255,255,0.2); }
+
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .pattern-section {
+            margin-bottom: 4rem;
+            scroll-margin-top: 80px;
+        }
+
+        .pattern-header {
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border-left: 6px solid;
+        }
+
+        /* Pattern Specific Colors */
+        #two-pointers .pattern-header { background: #fff1f2; border-color: #e11d48; }
+        #merge-intervals .pattern-header { background: #eff6ff; border-color: #2563eb; }
+        #sorting .pattern-header { background: #f0fdf4; border-color: #16a34a; }
+        #sliding-window .pattern-header { background: #f5f3ff; border-color: #7c3aed; }
+        #prefix-sums .pattern-header { background: #fefce8; border-color: #ca8a04; }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover { transform: translateY(-2px); }
+
+        .card-body { padding: 1.5rem; flex-grow: 1; }
+        
+        .card h3 { margin-top: 0; color: var(--primary); }
+        .card h3 a { text-decoration: none; color: inherit; }
+        .card h3 a:hover { text-decoration: underline; }
+
+        .tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            background: #e2e8f0;
+            color: #475569;
+            margin-bottom: 1rem;
+        }
+
+        .btn-code {
+            width: 100%;
+            padding: 1rem;
+            background: #f1f5f9;
+            border: none;
+            border-top: 1px solid #e2e8f0;
+            cursor: pointer;
+            font-weight: bold;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn-code:hover { background: #e2e8f0; }
+
+        .code-block {
+            display: none;
+            background: var(--code-bg);
+            color: #d4d4d4;
+            padding: 1rem;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.85rem;
+            margin: 0;
+        }
+
+        .active .code-block { display: block; }
+        .active .arrow { transform: rotate(180deg); }
+        .arrow { transition: transform 0.3s; }
+
+        /* Syntax Highlighting Simulation */
+        .kwd { color: #569cd6; } /* Keyword */
+        .typ { color: #4ec9b0; } /* Type */
+        .str { color: #ce9178; } /* String */
+        .com { color: #6a9955; } /* Comment */
+        .num { color: #b5cea8; } /* Number */
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Algorithm Patterns Cheat Sheet</h1>
+    <p>Based on LeetCode Patterns • Two Pointers • Merge Intervals • Sorting • Sliding Window • Prefix Sums</p>
+</header>
+
+<nav>
+    <a href="#two-pointers">Two Pointers</a>
+    <a href="#merge-intervals">Merge Intervals</a>
+    <a href="#sorting">Sorting</a>
+    <a href="#sliding-window">Sliding Window</a>
+    <a href="#prefix-sums">Prefix Sums</a>
+</nav>
+
+<main>
+
+    <!-- 1. TWO POINTERS -->
+    <section id="two-pointers" class="pattern-section">
+        <div class="pattern-header">
+            <h2>1. Two Pointers</h2>
+            <p><strong>Scenario:</strong> Iterate through an array with two pointers (typically from different ends). Good for comparing elements from two parts of an array.</p>
+            <p><strong>Clue:</strong> "Sorted Array", "Pairs", "Compare ends".</p>
+        </div>
+        <div class="problem-grid">
+            <!-- Two Sum -->
+            <div class="card">
+                <div class="card-body">
+                    <span class="tag">Easy</span>
+                    <h3><a href="https://leetcode.com/problems/two-sum/" target="_blank">Two Sum</a></h3>
+                    <p>Find two numbers that add up to a target. (Note: Standard Two Sum uses HashMap, but if sorted, use Two Pointers).</p>
+                </div>
+                <button class="btn-code" onclick="toggleCode(this)">
+                    Show C++ Solution <span class="arrow">▼</span>
+                </button>
+                <pre class="code-block">
+<span class="com">// Time: O(N), Space: O(N)</span>
+<span class="kwd">class</span> Solution {
+<span class="kwd">public</span>:
+    <span class="typ">vector</span>&lt;<span class="typ">int</span>&gt; twoSum(<span class="typ">vector</span>&lt;<span class="typ">int</span>&gt;& nums, <span class="typ">int</span> target) {
+        <span class="typ">unordered_map</span>&lt;<span class="typ">int</span>, <span class="typ">int</span>&gt; mp;
+        <span class="kwd">for</span> (<span class="typ">int</span> i = 0; i < nums.size(); i++) {
+            <span class="typ">int</span> complement = target - nums[i];
+            <span class="kwd">if</span> (mp.count(complement)) {
+                <span class="kwd">return</span> {mp[complement], i};
+            }
+            mp[nums[i]] = i;
+        }
+        <span class="kwd">return</span> {};
+    }
+};</pre>
+            </div>
+
+            <!-- 3Sum -->
+            <div class="card">
+                <div class="card-body">
+                    <span class="tag">Medium</span>
+                    <h3><a href="https://leetcode.com/problems/3sum/" target="_blank">3Sum</a></h3>
+                    <p>Find all unique triplets in the array which gives the sum of zero. Requires sorting first, then fixing one number and using two pointers.</p>
+                </div>
+                <button class="btn-code" onclick="toggleCode(this)">
+                    Show C++ Solution <span class="arrow">▼</span>
+                </button>
+                <pre class="code-block">
+<span class="kwd">class</span> Solution {
+<span class="kwd">public</span>:
+    <span class="typ">vector</span>&lt;<span class="typ">vector</span>&lt;<span class="typ">int</span>&gt;&gt; threeSum(<span class="typ">vector</span>&lt;<span class="typ">int</span>&gt;& nums) {
+        <span class="typ">vector</span>&lt;<span class="typ">vector</span>&lt;<span class="typ">int</span>&gt;&gt; res;
+        <span class="kwd">sort</span>(nums.begin(), nums.end());
+        
+        <span class="kwd">for</span> (<span class="typ">int</span> i = 0; i < nums.size(); i++) {
+            <span class="com">// Skip duplicates for the first number</span>
+            <span class="kwd">if</span> (i > 0 && nums[i] == nums[i-1]) <span class="kwd">continue</span>;
+            
+            <span class="typ">int</span> l = i + 1, r = nums.size() - 1;
+            <span class="kwd">while</span> (l < r) {
+                <span class="typ">int</span> sum = nums[i] + nums[l] + nums[r];
+                <span class="kwd">if</span> (sum > 0) r--;
+                <span class="kwd">else if</span> (sum < 0) l++;
+                <span class="kwd">else</span> {
+                    res.push_back({nums[i], nums[l], nums[r]});
+                    l++;
+                    <span class="com">// Skip duplicates for the second number</span>
+                    <span class="kwd">while</span> (l < r && nums[l] == nums[l-1]) l++;
+                }
+            }
+        }
+        <span class="kwd">return</span> res;
+    }
+};</pre>
+            </div>
+            
+            <!-- Squares of Sorted Array -->
+            <div class="card">
+                <div class="card-body">
+                    <span class="tag">Easy</span>
+                    <h3><a href="https://leetcode.com/problems/squares-of-a-sorted-array/" target="_blank">Squares of Sorted Array</a></h3>
+                    <p>Given an integer array sorted in non-decreasing order, return an array of the squares of each number sorted.</p>
+                </div>
+                <button class="btn-code" onclick="toggleCode(this)">
+                    Show C++ Solution <span class="arrow">▼</span>
+                </button>
+                <pre class="code-block">
+<span class="kwd">class</span> Solution {
+<span class="kwd">public</span>:
+    <span class="typ">vector</span>&lt;<span class="typ">int</span>&gt; sortedSquares(<span class="typ">vector</span>&lt;<span class="typ">int</span>&gt;& nums) {
+        <span class="typ">int</span> n = nums.size();
+        <span class="typ">vector</span>&lt;<span class="typ">int</span>&gt; res(n);
+        <span class="typ">int</span> l = 0, r = n - 1;
+        <span class="kwd">for</span> (<span class="typ">int</span> i = n - 1; i >= 0; i--) {
+            <span class="kwd">if</span> (abs(nums[l]) > abs(nums[r])) {
+                res[i] = nums[l] * nums[l];
+                l++;
+            } <span class="kwd">else</span> {
+                res[i] = nums[r] * nums[r];
+                r--;
+            }
+        }
+        <span class="kwd">return</span> res;
+    }
+};</pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. MERGE INTERVALS -->
+    <section id="merge-intervals" class="pattern-section">
+        <div class="pattern-header">
+            <h2>2. Merge Intervals</h2>
+            <p><strong>Scenario:</strong> Problems involving intervals, time ranges, or scheduling.</p>
+            <p><strong>Clue:</strong> "Start and end points", "Overlapping", "Merge".</p>
+        </div>
+        <div class="problem-grid">
+            <!-- Merge Intervals -->
+            <div class="card">
+                <div class="card-body">
+                    <span class="tag">Medium</span>
+                    <h3><a href="https://leetcode.com/problems/merge-intervals/" target="_blank">Merge Intervals</a></h3>
+                    <p>Given an array of intervals, merge all overlapping intervals.</p>
+                </div>
+                <button class="btn-code" onclick="toggleCode(this)">
+                    Show C++ Solution <span class="arrow">▼</span>
+                </button>
+                <pre class="code-block">
+<span class="kwd">class</span> Solution {
+<span class="kwd">public</span>:
+    <span class="typ">vector</span>&lt;<span class="typ">vector</span>&lt;<span class="typ">int</span>&gt;&gt; merge(<span class="typ">vector</span>&lt;<span class="typ">vector</span>&lt;<span class="typ">int</span>&gt;&gt;& intervals) {
+        <span class="kwd">if</span> (intervals.empty()) <span class="kwd">return</span> {};
+        <span class="com">// 1. Sort by start time</span>
+        <span class="kwd">sort</span>(intervals.begin(), intervals.end());
+        
+        <span class="typ">vector</span>&lt;<span class="typ">vector</span>&lt;<span class="typ">int</span>&gt;&gt; merged;
+        merged.push_back(intervals[0]);
+        
+        <span class="kwd">for</span> (<span class="typ">int</span> i = 1; i < intervals.size(); i++) {
+            <span class="com">// If overlap, update end time of last merged interval</span>
+            <span class="kwd">if</span> (merged.back()[1] >= intervals[i][0]) {
+                merged.back()[1] = max(merged.back()[1], intervals[i][1]);
+            } <span class="kwd">else</span> {
+                <span class="com">// No overlap, add new interval</span>
+                merged.push_back(intervals[i]);
+            }
+        }
+        <span class="kwd">return</span> merged;
+    }
+};</pre>
+            </div>
+
+            <!-- Insert Interval -->
+            <div class="card">
+                <div class="card-body">
+                    <span class="tag">Medium</span>
+                    <h3><a href="https://leetcode.com/problems/insert-interval/" target="_blank">Insert Interval</a></h3>
+                    <p>Insert a new interval into a sorted list of non-overlapping intervals and merge if necessary.</p>
+                </div>
+                <button class="btn-code" onclick="toggleCode(this)">
+                    Show C++ Solution <span class="arrow">▼</span>
+                </button>
+                <pre class="code-block">
+<span class="kwd">class</span> Solution {
+<span class="kwd">public</span>:
+    <span class="typ">vector</span>&lt;<span class="typ">vector</span>&lt;<span class="typ">int</span>&gt;&gt; insert(<span class="typ">vector</span>&lt;<span class="typ">vector</span>&lt;<span class="typ">int</span>&gt;&gt;& intervals, <span class="typ">vector</span>&lt;<span class="typ">int</span>&gt;& newInterval) {
+        <span class="typ">vector</span>&lt;<span class="typ">vector</span>&lt;<span class="typ">int</span>&gt;&gt; result;
+        <span class="typ">int</span> i = 0;
+        <span class="typ">int</span> n = intervals.size();
+        
+        <span class="com">// 1. Add all intervals ending before newInterval starts</span>
+        <span class="kwd">while</span> (i < n && intervals[i][1] < newInterval[0]) {
+            result.push_back(intervals[i++]);
+        }
+        
+        <span class="com">// 2. Merge overlapping intervals</span>
+        <span class="kwd">while</span> (i < n && intervals[i][0] <= newInterval[1]) {
+            newInterval[0] = min(newInterval[0], intervals[i][0]);
+            newInterval[1] = max(newInterval[1], intervals[i][1]);
+            i++;
+        }
+        result.push_back(newInterval);
+        
+        <span class="com">// 3. Add remaining intervals</span>
+        <span class="kwd">while</span> (i < n) {
+            result.push_back(intervals[i++]);
+        }
+        <span class="kwd">return</span> result;
+    }
+};</pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. SORTING -->
+    <section id="sorting" class="pattern-section">
+        <div class="pattern-header">
+            <h2>3. Sorting</h2>
+            <p><strong>Scenario:</strong> Arranging elements in specific order simplifies searching or counting.</p>
+            <p><strong>Clue:</strong> "Sort first", "Anagrams", "Meeting Rooms".</p>
+        </div>
+        <div class="problem-grid">
+            <!-- Sort Colors -->
+            <div class="card">
+                <div class="card-body">
+                    <span class="tag">Medium</span>
+                    <h3><a href="https://leetcode.com/problems/sort-colors/" target="_blank">Sort Colors</a></h3>
+                    <p>Sort an array of 0s, 1s, and 2s in-place (Dutch National Flag problem).</p>
+                </div>
+                <button class="btn-code" onclick="toggleCode(this)">
+                    Show C++ Solution <span class="arrow">▼</span>
+                </button>
+                <pre class="code-block">
+<span class="kwd">class</span> Solution {
+<span class="kwd">public</span>:
+    <span class="typ">void</span> sortColors(<span class="typ">vector</span>&lt;<span class="typ">int</span>&gt;& nums) {
+        <span class="typ">int</span> low = 0, mid = 0, high = nums.size() - 1;
+        <span class="kwd">while</span> (mid <= high) {
+            <span class="kwd">if</span> (nums[mid] == 0) {
+                <span class="kwd">swap</span>(nums[low], nums[mid]);
+                low++; mid++;
+            } 
+            <span class="kwd">else if</span> (nums[mid] == 1) {
+                mid++;
+            } 
+            <span class="kwd">else</span> {
+                <span class="kwd">swap</span>(nums[mid], nums[high]);
+                high--;
+            }
+        }
+    }
+};</pre>
+            </div>
+
+            <!-- Merge Sorted Array -->
+            <div class="card">
+                <div class="card-body">
+                    <span class="tag">Easy</span>
+                    <h3><a href="https://leetcode.com/problems/merge-sorted-array/" target="_blank">Merge Sorted Array</a></h3>
+                    <p>Merge two sorted arrays into the first array.</p>
+                </div>
+                <button class="btn-code" onclick="toggleCode(this)">
+                    Show C++ Solution <span class="arrow">▼</span>
+                </button>
+                <pre class="code-block">
+<span class="kwd">class</span> Solution {
+<span class="kwd">public</span>:
+    <span class="typ">void</span> merge(<span class="typ">vector</span>&lt;<span class="typ">int</span>&gt;& nums1, <span class="typ">int</span> m, <span class="typ">vector</span>&lt;<span class="typ">int</span>&gt;& nums2, <span class="typ">int</span> n) {
+        <span class="typ">int</span> p1 = m - 1;
+        <span class="typ">int</span> p2 = n - 1;
+        <span class="typ">int</span> pMerge = m + n - 1;
+        
+        <span class="kwd">while</span> (p2 >= 0) {
+            <span class="kwd">if</span> (p1 >= 0 && nums1[p1] > nums2[p2]) {
+                nums1[pMerge--] = nums1[p1--];
+            } <span class="kwd">else</span> {
+                nums1[pMerge--] = nums2[p2--];
+            }
+        }
+    }
+};</pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. SLIDING WINDOW -->
+    <section id="sliding-window" class="pattern-section">
+        <div class="pattern-header">
+            <h2>4. Sliding Window</h2>
+            <p><strong>Scenario:</strong> Contiguous subarrays/substrings. Slide a window across the array to satisfy a condition.</p>
+            <p><strong>Clue:</strong> "Contiguous", "Subarray", "Min length", "Max Sum".</p>
+        </div>
+        <div class="problem-grid">
+            <!-- Min Size Subarray Sum -->
+            <div class="card">
+                <div class="card-body">
+                    <span class="tag">Medium</span>
+                    <h3><a href="https://leetcode.com/problems/minimum-size-subarray-sum/" target="_blank">Min Size Subarray Sum</a></h3>
+                    <p>Find the minimal length of a contiguous subarray of which the sum is greater than or equal to target.</p>
+                </div>
+                <button class="btn-code" onclick="toggleCode(this)">
+                    Show C++ Solution <span class="arrow">▼</span>
+                </button>
+                <pre class="code-block">
+<span class="kwd">class</span> Solution {
+<span class="kwd">public</span>:
+    <span class="typ">int</span> minSubArrayLen(<span class="typ">int</span> target, <span class="typ">vector</span>&lt;<span class="typ">int</span>&gt;& nums) {
+        <span class="typ">int</span> l = 0, sum = 0;
+        <span class="typ">int</span> minLen = INT_MAX;
+        
+        <span class="kwd">for</span> (<span class="typ">int</span> r = 0; r < nums.size(); r++) {
+            sum += nums[r];
+            <span class="com">// Shrink window while condition is met</span>
+            <span class="kwd">while</span> (sum >= target) {
+                minLen = min(minLen, r - l + 1);
+                sum -= nums[l];
+                l++;
+            }
+        }
+        <span class="kwd">return</span> (minLen == INT_MAX) ? 0 : minLen;
+    }
+};</pre>
+            </div>
+
+            <!-- Longest Continuous Increasing Subsequence -->
+            <div class="card">
+                <div class="card-body">
+                    <span class="tag">Easy</span>
+                    <h3><a href="https://leetcode.com/problems/longest-continuous-increasing-subsequence/" target="_blank">Longest Continuous Increasing Subsequence</a></h3>
+                    <p>Find length of longest continuous increasing subsequence.</p>
+                </div>
+                <button class="btn-code" onclick="toggleCode(this)">
+                    Show C++ Solution <span class="arrow">▼</span>
+                </button>
+                <pre class="code-block">
+<span class="kwd">class</span> Solution {
+<span class="kwd">public</span>:
+    <span class="typ">int</span> findLengthOfLCIS(<span class="typ">vector</span>&lt;<span class="typ">int</span>&gt;& nums) {
+        <span class="kwd">if</span> (nums.empty()) <span class="kwd">return</span> 0;
+        <span class="typ">int</span> maxLen = 1;
+        <span class="typ">int</span> currentLen = 1;
+        <span class="kwd">for</span>(<span class="typ">int</span> i=1; i < nums.size(); ++i) {
+            <span class="kwd">if</span>(nums[i] > nums[i-1]) {
+                currentLen++;
+                maxLen = max(maxLen, currentLen);
+            } <span class="kwd">else</span> {
+                currentLen = 1;
+            }
+        }
+        <span class="kwd">return</span> maxLen;
+    }
+};</pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. PREFIX SUMS -->
+    <section id="prefix-sums" class="pattern-section">
+        <div class="pattern-header">
+            <h2>5. Prefix Sums</h2>
+            <p><strong>Scenario:</strong> Compute cumulative sums to answer range queries efficiently.</p>
+            <p><strong>Clue:</strong> "Range Sum", "Cumulative Sum", "Subarray Sum".</p>
+        </div>
+        <div class="problem-grid">
+            <!-- Range Sum Query - Immutable -->
+            <div class="card">
+                <div class="card-body">
+                    <span class="tag">Easy</span>
+                    <h3><a href="https://leetcode.com/problems/range-sum-query-immutable/" target="_blank">Range Sum Query (Immutable)</a></h3>
+                    <p>Calculate sum of elements between indices i and j multiple times.</p>
+                </div>
+                <button class="btn-code" onclick="toggleCode(this)">
+                    Show C++ Solution <span class="arrow">▼</span>
+                </button>
+                <pre class="code-block">
+<span class="kwd">class</span> NumArray {
+    <span class="typ">vector</span>&lt;<span class="typ">int</span>&gt; prefix;
+<span class="kwd">public</span>:
+    NumArray(<span class="typ">vector</span>&lt;<span class="typ">int</span>&gt;& nums) {
+        prefix.resize(nums.size() + 1, 0);
+        <span class="kwd">for</span> (<span class="typ">int</span> i = 0; i < nums.size(); i++) {
+            prefix[i+1] = prefix[i] + nums[i];
+        }
+    }
+    
+    <span class="typ">int</span> sumRange(<span class="typ">int</span> left, <span class="typ">int</span> right) {
+        <span class="kwd">return</span> prefix[right+1] - prefix[left];
+    }
+};</pre>
+            </div>
+
+            <!-- Subarray Product Less Than K -->
+             <div class="card">
+                <div class="card-body">
+                    <span class="tag">Medium</span>
+                    <h3><a href="https://leetcode.com/problems/subarray-product-less-than-k/" target="_blank">Subarray Product Less Than K</a></h3>
+                    <p>Count subarrays where the product of elements is less than K. (Note: Often solved with Sliding Window, but related to aggregate tracking).</p>
+                </div>
+                <button class="btn-code" onclick="toggleCode(this)">
+                    Show C++ Solution <span class="arrow">▼</span>
+                </button>
+                <pre class="code-block">
+<span class="kwd">class</span> Solution {
+<span class="kwd">public</span>:
+    <span class="typ">int</span> numSubarrayProductLessThanK(<span class="typ">vector</span>&lt;<span class="typ">int</span>&gt;& nums, <span class="typ">int</span> k) {
+        <span class="kwd">if</span> (k <= 1) <span class="kwd">return</span> 0;
+        <span class="typ">int</span> prod = 1, ans = 0, left = 0;
+        <span class="kwd">for</span> (<span class="typ">int</span> right = 0; right < nums.size(); right++) {
+            prod *= nums[right];
+            <span class="kwd">while</span> (prod >= k) {
+                prod /= nums[left];
+                left++;
+            }
+            <span class="com">// Size of window adds to count</span>
+            ans += (right - left + 1);
+        }
+        <span class="kwd">return</span> ans;
+    }
+};</pre>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<script>
+    function toggleCode(btn) {
+        const parent = btn.parentElement;
+        parent.classList.toggle('active');
+        const text = parent.classList.contains('active') ? 'Hide C++ Solution' : 'Show C++ Solution';
+        btn.innerHTML = `${text} <span class="arrow">▼</span>`;
+    }
+</script>
+
+</body>
+</html>
