@@ -247,7 +247,7 @@
 <span class="kwd">public</span>:
     <span class="typ">vector</span>&lt;<span class="typ">int</span>&gt; <span class="fn">twoSum</span>(<span class="typ">vector</span>&lt;<span class="typ">int</span>&gt;& nums, <span class="typ">int</span> target) {
         <span class="typ">unordered_map</span>&lt;<span class="typ">int</span>, <span class="typ">int</span>&gt; m;
-        <span class="kwd">for</span> (<span class="typ">int</span> i = 0; i < nums.size(); i++) {
+        <span class="kwd">for</span> (<span class="typ">int</span> i = 0; i &lt; nums.size(); i++) {
             <span class="typ">int</span> diff = target - nums[i];
             <span class="kwd">if</span> (m.count(diff)) <span class="kwd">return</span> {m[diff], i};
             m[nums[i]] = i;
@@ -280,17 +280,17 @@
     <span class="typ">vector</span>&lt;<span class="typ">vector</span>&lt;<span class="typ">int</span>&gt;&gt; <span class="fn">threeSum</span>(<span class="typ">vector</span>&lt;<span class="typ">int</span>&gt;& nums) {
         <span class="typ">vector</span>&lt;<span class="typ">vector</span>&lt;<span class="typ">int</span>&gt;&gt; res;
         <span class="fn">sort</span>(nums.begin(), nums.end());
-        <span class="kwd">for</span> (<span class="typ">int</span> i = 0; i < nums.size(); i++) {
-            <span class="kwd">if</span> (i > 0 && nums[i] == nums[i-1]) <span class="kwd">continue</span>;
+        <span class="kwd">for</span> (<span class="typ">int</span> i = 0; i &lt; nums.size(); i++) {
+            <span class="kwd">if</span> (i &gt; 0 && nums[i] == nums[i-1]) <span class="kwd">continue</span>;
             <span class="typ">int</span> l = i + 1, r = nums.size() - 1;
-            <span class="kwd">while</span> (l < r) {
+            <span class="kwd">while</span> (l &lt; r) {
                 <span class="typ">int</span> sum = nums[i] + nums[l] + nums[r];
-                <span class="kwd">if</span> (sum > 0) r--;
-                <span class="kwd">else if</span> (sum < 0) l++;
+                <span class="kwd">if</span> (sum &gt; 0) r--;
+                <span class="kwd">else if</span> (sum &lt; 0) l++;
                 <span class="kwd">else</span> {
                     res.push_back({nums[i], nums[l], nums[r]});
                     l++;
-                    <span class="kwd">while</span> (l < r && nums[l] == nums[l-1]) l++;
+                    <span class="kwd">while</span> (l &lt; r && nums[l] == nums[l-1]) l++;
                 }
             }
         }
@@ -319,12 +319,12 @@
     <span class="typ">int</span> <span class="fn">threeSumClosest</span>(<span class="typ">vector</span>&lt;<span class="typ">int</span>&gt;& nums, <span class="typ">int</span> target) {
         <span class="fn">sort</span>(nums.begin(), nums.end());
         <span class="typ">int</span> closest = nums[0] + nums[1] + nums[2];
-        <span class="kwd">for</span>(<span class="typ">int</span> i=0; i<nums.size()-2; ++i){
+        <span class="kwd">for</span>(<span class="typ">int</span> i=0; i&lt;nums.size()-2; ++i){
             <span class="typ">int</span> l = i+1, r = nums.size()-1;
-            <span class="kwd">while</span>(l < r){
+            <span class="kwd">while</span>(l &lt; r){
                 <span class="typ">int</span> cur = nums[i] + nums[l] + nums[r];
-                <span class="kwd">if</span>(<span class="fn">abs</span>(cur - target) < <span class="fn">abs</span>(closest - target)) closest = cur;
-                <span class="kwd">if</span>(cur < target) l++;
+                <span class="kwd">if</span>(<span class="fn">abs</span>(cur - target) &lt; <span class="fn">abs</span>(closest - target)) closest = cur;
+                <span class="kwd">if</span>(cur &lt; target) l++;
                 <span class="kwd">else</span> r--;
             }
         }
@@ -355,7 +355,7 @@
     <span class="typ">int</span> <span class="fn">removeDuplicates</span>(<span class="typ">vector</span>&lt;<span class="typ">int</span>&gt;& nums) {
         <span class="kwd">if</span> (nums.empty()) <span class="kwd">return</span> 0;
         <span class="typ">int</span> k = 1; 
-        <span class="kwd">for</span> (<span class="typ">int</span> i = 1; i < nums.size(); i++) {
+        <span class="kwd">for</span> (<span class="typ">int</span> i = 1; i &lt; nums.size(); i++) {
             <span class="kwd">if</span> (nums[i] != nums[i-1]) {
                 nums[k] = nums[i];
                 k++;
@@ -389,8 +389,8 @@
         <span class="typ">int</span> n = nums.size();
         <span class="typ">vector</span>&lt;<span class="typ">int</span>&gt; res(n);
         <span class="typ">int</span> l = 0, r = n - 1;
-        <span class="kwd">for</span> (<span class="typ">int</span> i = n - 1; i >= 0; i--) {
-            <span class="kwd">if</span> (<span class="fn">abs</span>(nums[l]) > <span class="fn">abs</span>(nums[r])) {
+        <span class="kwd">for</span> (<span class="typ">int</span> i = n - 1; i &gt;= 0; i--) {
+            <span class="kwd">if</span> (<span class="fn">abs</span>(nums[l]) &gt; <span class="fn">abs</span>(nums[r])) {
                 res[i] = nums[l] * nums[l];
                 l++;
             } <span class="kwd">else</span> {
@@ -426,9 +426,9 @@
                     <div class="intuition">
                         <strong>Visual Intuition:</strong>
                         Input: <code>[1,3], [2,6], [8,10]</code>. Sort by Start Time.<br>
-                        1. Compare <code>[1,3]</code> and <code>[2,6]</code>. 2 < 3 (Overlap).<br>
+                        1. Compare <code>[1,3]</code> and <code>[2,6]</code>. 2 &lt; 3 (Overlap).<br>
                         2. Merge: New end is <code>max(3, 6) = 6</code>. Current: <code>[1,6]</code>.<br>
-                        3. Compare <code>[1,6]</code> and <code>[8,10]</code>. 8 > 6 (No overlap). Save <code>[1,6]</code>, start new <code>[8,10]</code>.
+                        3. Compare <code>[1,6]</code> and <code>[8,10]</code>. 8 &gt; 6 (No overlap). Save <code>[1,6]</code>, start new <code>[8,10]</code>.
                     </div>
                 </div>
                 <button class="btn-code" onclick="toggleCode(this)">Show C++ Solution <span class="arrow">▼</span></button>
@@ -440,8 +440,8 @@
         <span class="fn">sort</span>(intv.begin(), intv.end());
         <span class="typ">vector</span>&lt;<span class="typ">vector</span>&lt;<span class="typ">int</span>&gt;&gt; res;
         res.push_back(intv[0]);
-        <span class="kwd">for</span>(<span class="typ">int</span> i=1; i<intv.size(); i++){
-            <span class="kwd">if</span>(res.back()[1] >= intv[i][0]) 
+        <span class="kwd">for</span>(<span class="typ">int</span> i=1; i&lt;intv.size(); i++){
+            <span class="kwd">if</span>(res.back()[1] &gt;= intv[i][0]) 
                 res.back()[1] = <span class="fn">max</span>(res.back()[1], intv[i][1]);
             <span class="kwd">else</span> 
                 res.push_back(intv[i]);
@@ -462,7 +462,7 @@
                         <strong>Visual Intuition:</strong>
                         Intervals: <code>[1,2], [3,5], [6,7], [8,10], [12,16]</code>. New: <code>[4,8]</code>.<br>
                         1. Add <code>[1,2]</code> (ends before 4).<br>
-                        2. Merge Overlaps: <code>[3,5]</code> overlaps <code>[4,8]</code> -> <code>[3,8]</code>. <code>[6,7]</code> overlaps -> <code>[3,8]</code>. <code>[8,10]</code> overlaps -> <code>[3,10]</code>.<br>
+                        2. Merge Overlaps: <code>[3,5]</code> overlaps <code>[4,8]</code> -&gt; <code>[3,8]</code>. <code>[6,7]</code> overlaps -&gt; <code>[3,8]</code>. <code>[8,10]</code> overlaps -&gt; <code>[3,10]</code>.<br>
                         3. Add remaining <code>[12,16]</code>.
                     </div>
                 </div>
@@ -474,16 +474,16 @@
         <span class="typ">vector</span>&lt;<span class="typ">vector</span>&lt;<span class="typ">int</span>&gt;&gt; res;
         <span class="typ">int</span> i = 0, n = intv.size();
         <span class="com">// Before overlap</span>
-        <span class="kwd">while</span>(i < n && intv[i][1] < newInt[0]) res.push_back(intv[i++]);
+        <span class="kwd">while</span>(i &lt; n && intv[i][1] &lt; newInt[0]) res.push_back(intv[i++]);
         <span class="com">// Merging overlap</span>
-        <span class="kwd">while</span>(i < n && intv[i][0] <= newInt[1]){
+        <span class="kwd">while</span>(i &lt; n && intv[i][0] &lt;= newInt[1]){
             newInt[0] = <span class="fn">min</span>(newInt[0], intv[i][0]);
             newInt[1] = <span class="fn">max</span>(newInt[1], intv[i][1]);
             i++;
         }
         res.push_back(newInt);
         <span class="com">// After overlap</span>
-        <span class="kwd">while</span>(i < n) res.push_back(intv[i++]);
+        <span class="kwd">while</span>(i &lt; n) res.push_back(intv[i++]);
         <span class="kwd">return</span> res;
     }
 };
@@ -510,12 +510,12 @@
         <span class="kwd">if</span>(intv.empty()) <span class="kwd">return</span> 0;
         <span class="com">// Sort by end time</span>
         <span class="fn">sort</span>(intv.begin(), intv.end(), [](<span class="kwd">auto</span>& a, <span class="kwd">auto</span>& b){
-            <span class="kwd">return</span> a[1] < b[1];
+            <span class="kwd">return</span> a[1] &lt; b[1];
         });
         <span class="typ">int</span> end = intv[0][1];
         <span class="typ">int</span> count = 0;
-        <span class="kwd">for</span>(<span class="typ">int</span> i=1; i<intv.size(); i++){
-            <span class="kwd">if</span>(intv[i][0] < end) count++; <span class="com">// Overlap, remove current</span>
+        <span class="kwd">for</span>(<span class="typ">int</span> i=1; i&lt;intv.size(); i++){
+            <span class="kwd">if</span>(intv[i][0] &lt; end) count++; <span class="com">// Overlap, remove current</span>
             <span class="kwd">else</span> end = intv[i][1];
         }
         <span class="kwd">return</span> count;
@@ -534,7 +534,7 @@
                         <strong>Visual Intuition:</strong>
                         Two pointers <code>i</code> (List A) and <code>j</code> (List B).<br>
                         Intersection range: <code>[max(startA, startB), min(endA, endB)]</code>.<br>
-                        Valid if start <= end.<br>
+                        Valid if start &lt;= end.<br>
                         To move forward: Who ends first? If A ends before B, increment A (we are done with that interval).
                     </div>
                 </div>
@@ -545,13 +545,13 @@
     <span class="typ">vector</span>&lt;<span class="typ">vector</span>&lt;<span class="typ">int</span>&gt;&gt; <span class="fn">intervalIntersection</span>(<span class="typ">vector</span>&lt;<span class="typ">vector</span>&lt;<span class="typ">int</span>&gt;&gt;& A, <span class="typ">vector</span>&lt;<span class="typ">vector</span>&lt;<span class="typ">int</span>&gt;&gt;& B) {
         <span class="typ">vector</span>&lt;<span class="typ">vector</span>&lt;<span class="typ">int</span>&gt;&gt; res;
         <span class="typ">int</span> i = 0, j = 0;
-        <span class="kwd">while</span>(i < A.size() && j < B.size()){
+        <span class="kwd">while</span>(i &lt; A.size() && j &lt; B.size()){
             <span class="typ">int</span> start = <span class="fn">max</span>(A[i][0], B[j][0]);
             <span class="typ">int</span> end = <span class="fn">min</span>(A[i][1], B[j][1]);
-            <span class="kwd">if</span>(start <= end) res.push_back({start, end});
+            <span class="kwd">if</span>(start &lt;= end) res.push_back({start, end});
             
             <span class="com">// Move the pointer with the earlier end time</span>
-            <span class="kwd">if</span>(A[i][1] < B[j][1]) i++;
+            <span class="kwd">if</span>(A[i][1] &lt; B[j][1]) i++;
             <span class="kwd">else</span> j++;
         }
         <span class="kwd">return</span> res;
@@ -593,7 +593,7 @@
 <span class="kwd">public</span>:
     <span class="typ">void</span> <span class="fn">sortColors</span>(<span class="typ">vector</span>&lt;<span class="typ">int</span>&gt;& nums) {
         <span class="typ">int</span> l = 0, m = 0, h = nums.size() - 1;
-        <span class="kwd">while</span> (m <= h) {
+        <span class="kwd">while</span> (m &lt;= h) {
             <span class="kwd">if</span> (nums[m] == 0) <span class="fn">swap</span>(nums[l++], nums[m++]);
             <span class="kwd">else if</span> (nums[m] == 1) m++;
             <span class="kwd">else</span> <span class="fn">swap</span>(nums[m], nums[h--]);
@@ -613,7 +613,7 @@
                         <strong>Visual Intuition:</strong>
                         Imagine a timeline. A meeting starting adds a room (+1). A meeting ending frees a room (-1).<br>
                         Separate Starts and Ends into two sorted arrays.<br>
-                        If <code>start[i] < end[j]</code>, a new meeting started before old one finished. Need room.<br>
+                        If <code>start[i] &lt; end[j]</code>, a new meeting started before old one finished. Need room.<br>
                         Else, one finished. Reuse room.
                     </div>
                 </div>
@@ -631,8 +631,8 @@
         <span class="fn">sort</span>(ends.begin(), ends.end());
         
         <span class="typ">int</span> rooms = 0, endIdx = 0;
-        <span class="kwd">for</span>(<span class="typ">int</span> i=0; i<starts.size(); i++) {
-            <span class="kwd">if</span>(starts[i] < ends[endIdx]) rooms++;
+        <span class="kwd">for</span>(<span class="typ">int</span> i=0; i&lt;starts.size(); i++) {
+            <span class="kwd">if</span>(starts[i] &lt; ends[endIdx]) rooms++;
             <span class="kwd">else</span> endIdx++;
         }
         <span class="kwd">return</span> rooms;
@@ -651,8 +651,8 @@
                         <strong>Visual Intuition:</strong>
                         Sorting problem with custom comparator.<br>
                         Comparing 3 and 30: "3" + "30" = "330". "30" + "3" = "303".<br>
-                        Since 330 > 303, 3 should come before 30.<br>
-                        Rule: Sort <code>a</code> before <code>b</code> if <code>a+b > b+a</code>.
+                        Since 330 &gt; 303, 3 should come before 30.<br>
+                        Rule: Sort <code>a</code> before <code>b</code> if <code>a+b &gt; b+a</code>.
                     </div>
                 </div>
                 <button class="btn-code" onclick="toggleCode(this)">Show C++ Solution <span class="arrow">▼</span></button>
@@ -664,7 +664,7 @@
         <span class="kwd">for</span>(<span class="typ">int</span> n : nums) s_nums.push_back(<span class="fn">to_string</span>(n));
         
         <span class="fn">sort</span>(s_nums.begin(), s_nums.end(), [](<span class="typ">string</span> &a, <span class="typ">string</span> &b){
-            <span class="kwd">return</span> a + b > b + a;
+            <span class="kwd">return</span> a + b &gt; b + a;
         });
         
         <span class="kwd">if</span>(s_nums[0] == "0") <span class="kwd">return</span> "0";
@@ -681,7 +681,7 @@
             <div class="card">
                 <div class="card-body">
                     <h3><a href="https://leetcode.com/problems/wiggle-sort-ii/" target="_blank">Wiggle Sort II</a> <span class="diff medium">Medium</span></h3>
-                    <p>Reorder such that nums[0] < nums[1] > nums[2] < ...</p>
+                    <p>Reorder such that nums[0] &lt; nums[1] &gt; nums[2] &lt; ...</p>
                     <div class="intuition">
                         <strong>Visual Intuition:</strong>
                         1. Sort the array.<br>
@@ -701,9 +701,9 @@
         <span class="typ">int</span> n = nums.size();
         <span class="typ">int</span> j = n - 1;
         <span class="com">// Fill odd (1, 3, 5) with Large values</span>
-        <span class="kwd">for</span> (<span class="typ">int</span> i = 1; i < n; i += 2) nums[i] = sorted[j--];
+        <span class="kwd">for</span> (<span class="typ">int</span> i = 1; i &lt; n; i += 2) nums[i] = sorted[j--];
         <span class="com">// Fill even (0, 2, 4) with Small values</span>
-        <span class="kwd">for</span> (<span class="typ">int</span> i = 0; i < n; i += 2) nums[i] = sorted[j--];
+        <span class="kwd">for</span> (<span class="typ">int</span> i = 0; i &lt; n; i += 2) nums[i] = sorted[j--];
     }
 };
 <span class="com">// Time Complexity: O(N log N) - Sorting</span>
@@ -728,8 +728,8 @@
 <span class="kwd">public</span>:
     <span class="typ">void</span> <span class="fn">merge</span>(<span class="typ">vector</span>&lt;<span class="typ">int</span>&gt;& nums1, <span class="typ">int</span> m, <span class="typ">vector</span>&lt;<span class="typ">int</span>&gt;& nums2, <span class="typ">int</span> n) {
         <span class="typ">int</span> i = m - 1, j = n - 1, k = m + n - 1;
-        <span class="kwd">while</span>(j >= 0) {
-            <span class="kwd">if</span>(i >= 0 && nums1[i] > nums2[j]) nums1[k--] = nums1[i--];
+        <span class="kwd">while</span>(j &gt;= 0) {
+            <span class="kwd">if</span>(i &gt;= 0 && nums1[i] &gt; nums2[j]) nums1[k--] = nums1[i--];
             <span class="kwd">else</span> nums1[k--] = nums2[j--];
         }
     }
@@ -759,8 +759,8 @@
                     <div class="intuition">
                         <strong>Visual Intuition:</strong>
                         1. Expand <code>right</code> pointer, adding to sum.<br>
-                        2. Once sum >= target, the window is valid.<br>
-                        3. Try to shrink from <code>left</code> to make it smaller while keeping sum >= target.<br>
+                        2. Once sum &gt;= target, the window is valid.<br>
+                        3. Try to shrink from <code>left</code> to make it smaller while keeping sum &gt;= target.<br>
                         4. Record min length.
                     </div>
                 </div>
@@ -770,9 +770,9 @@
 <span class="kwd">public</span>:
     <span class="typ">int</span> <span class="fn">minSubArrayLen</span>(<span class="typ">int</span> target, <span class="typ">vector</span>&lt;<span class="typ">int</span>&gt;& nums) {
         <span class="typ">int</span> l = 0, sum = 0, res = INT_MAX;
-        <span class="kwd">for</span> (<span class="typ">int</span> r = 0; r < nums.size(); r++) {
+        <span class="kwd">for</span> (<span class="typ">int</span> r = 0; r &lt; nums.size(); r++) {
             sum += nums[r];
-            <span class="kwd">while</span> (sum >= target) {
+            <span class="kwd">while</span> (sum &gt;= target) {
                 res = <span class="fn">min</span>(res, r - l + 1);
                 sum -= nums[l++];
             }
@@ -792,7 +792,7 @@
                     <div class="intuition">
                         <strong>Visual Intuition:</strong>
                         Don't slide blindly. Identify a **Peak** first.<br>
-                        A peak is <code>A[i-1] < A[i] > A[i+1]</code>.<br>
+                        A peak is <code>A[i-1] &lt; A[i] &gt; A[i+1]</code>.<br>
                         If found, expand pointers Left and Right from the peak to find the mountain base width.
                     </div>
                 </div>
@@ -802,12 +802,12 @@
 <span class="kwd">public</span>:
     <span class="typ">int</span> <span class="fn">longestMountain</span>(<span class="typ">vector</span>&lt;<span class="typ">int</span>&gt;& arr) {
         <span class="typ">int</span> res = 0, n = arr.size();
-        <span class="kwd">for</span> (<span class="typ">int</span> i = 1; i < n - 1; ++i) {
-            <span class="kwd">if</span> (arr[i] > arr[i-1] && arr[i] > arr[i+1]) {
+        <span class="kwd">for</span> (<span class="typ">int</span> i = 1; i &lt; n - 1; ++i) {
+            <span class="kwd">if</span> (arr[i] &gt; arr[i-1] && arr[i] &gt; arr[i+1]) {
                 <span class="typ">int</span> l = i - 1;
                 <span class="typ">int</span> r = i + 1;
-                <span class="kwd">while</span> (l > 0 && arr[l] > arr[l-1]) l--;
-                <span class="kwd">while</span> (r < n - 1 && arr[r] > arr[r+1]) r++;
+                <span class="kwd">while</span> (l &gt; 0 && arr[l] &gt; arr[l-1]) l--;
+                <span class="kwd">while</span> (r &lt; n - 1 && arr[r] &gt; arr[r+1]) r++;
                 res = <span class="fn">max</span>(res, r - l + 1);
             }
         }
@@ -825,7 +825,7 @@
                     <p>Longest increasing contiguous subarray.</p>
                     <div class="intuition">
                         <strong>Visual Intuition:</strong>
-                        Iterate. If <code>nums[i] > nums[i-1]</code>, current sequence length increases.<br>
+                        Iterate. If <code>nums[i] &gt; nums[i-1]</code>, current sequence length increases.<br>
                         If not, the sequence breaks. Reset length to 1.<br>
                         Keep track of global max.
                     </div>
@@ -837,8 +837,8 @@
     <span class="typ">int</span> <span class="fn">findLengthOfLCIS</span>(<span class="typ">vector</span>&lt;<span class="typ">int</span>&gt;& nums) {
         <span class="kwd">if</span>(nums.empty()) <span class="kwd">return</span> 0;
         <span class="typ">int</span> res = 1, cur = 1;
-        <span class="kwd">for</span>(<span class="typ">int</span> i=1; i<nums.size(); ++i){
-            <span class="kwd">if</span>(nums[i] > nums[i-1]) cur++;
+        <span class="kwd">for</span>(<span class="typ">int</span> i=1; i&lt;nums.size(); ++i){
+            <span class="kwd">if</span>(nums[i] &gt; nums[i-1]) cur++;
             <span class="kwd">else</span> cur = 1;
             res = <span class="fn">max</span>(res, cur);
         }
@@ -874,10 +874,10 @@
         
         <span class="typ">int</span> windowSize = n - k;
         <span class="typ">int</span> curSum = 0;
-        <span class="kwd">for</span>(<span class="typ">int</span> i=0; i<windowSize; i++) curSum += cardPoints[i];
+        <span class="kwd">for</span>(<span class="typ">int</span> i=0; i&lt;windowSize; i++) curSum += cardPoints[i];
         
         <span class="typ">int</span> minSubArray = curSum;
-        <span class="kwd">for</span>(<span class="typ">int</span> i=windowSize; i<n; i++) {
+        <span class="kwd">for</span>(<span class="typ">int</span> i=windowSize; i&lt;n; i++) {
             curSum += cardPoints[i] - cardPoints[i - windowSize];
             minSubArray = <span class="fn">min</span>(minSubArray, curSum);
         }
@@ -906,8 +906,8 @@
 <span class="kwd">public</span>:
     <span class="typ">int</span> <span class="fn">maxProduct</span>(<span class="typ">vector</span>&lt;<span class="typ">int</span>&gt;& nums) {
         <span class="typ">int</span> res = nums[0], mn = nums[0], mx = nums[0];
-        <span class="kwd">for</span>(<span class="typ">int</span> i=1; i<nums.size(); i++){
-            <span class="kwd">if</span>(nums[i] < 0) <span class="fn">swap</span>(mn, mx);
+        <span class="kwd">for</span>(<span class="typ">int</span> i=1; i&lt;nums.size(); i++){
+            <span class="kwd">if</span>(nums[i] &lt; 0) <span class="fn">swap</span>(mn, mx);
             mx = <span class="fn">max</span>(nums[i], mx * nums[i]);
             mn = <span class="fn">min</span>(nums[i], mn * nums[i]);
             res = <span class="fn">max</span>(res, mx);
@@ -951,11 +951,11 @@
 <span class="kwd">class</span> Solution {
     <span class="typ">vector</span>&lt;<span class="typ">int</span>&gt; bit;
     <span class="typ">void</span> update(<span class="typ">int</span> i, <span class="typ">int</span> val) {
-        <span class="kwd">for</span>(; i < bit.size(); i += i & -i) bit[i] += val;
+        <span class="kwd">for</span>(; i &lt; bit.size(); i += i & -i) bit[i] += val;
     }
     <span class="typ">int</span> query(<span class="typ">int</span> i) {
         <span class="typ">int</span> sum = 0;
-        <span class="kwd">for</span>(; i > 0; i -= i & -i) sum += bit[i];
+        <span class="kwd">for</span>(; i &gt; 0; i -= i & -i) sum += bit[i];
         <span class="kwd">return</span> sum;
     }
 <span class="kwd">public</span>:
@@ -966,7 +966,7 @@
         <span class="fn">sort</span>(sorted.begin(), sorted.end());
         
         bit.resize(n + 2, 0);
-        <span class="kwd">for</span>(<span class="typ">int</span> i = n-1; i >= 0; i--) {
+        <span class="kwd">for</span>(<span class="typ">int</span> i = n-1; i &gt;= 0; i--) {
             <span class="typ">int</span> rank = <span class="fn">lower_bound</span>(sorted.begin(), sorted.end(), nums[i]) - sorted.begin() + 1;
             res[i] = query(rank - 1);
             update(rank, 1);
@@ -999,11 +999,11 @@
 <span class="kwd">public</span>:
     NumArray(<span class="typ">vector</span>&lt;<span class="typ">int</span>&gt;& nums) : nums(nums), n(nums.size()) {
         bit.resize(n + 1, 0);
-        <span class="kwd">for</span> (<span class="typ">int</span> i = 0; i < n; i++) add(i + 1, nums[i]);
+        <span class="kwd">for</span> (<span class="typ">int</span> i = 0; i &lt; n; i++) add(i + 1, nums[i]);
     }
     
     <span class="typ">void</span> add(<span class="typ">int</span> i, <span class="typ">int</span> val) {
-        <span class="kwd">for</span> (; i <= n; i += i & -i) bit[i] += val;
+        <span class="kwd">for</span> (; i &lt;= n; i += i & -i) bit[i] += val;
     }
 
     <span class="typ">void</span> update(<span class="typ">int</span> index, <span class="typ">int</span> val) {
@@ -1013,7 +1013,7 @@
     
     <span class="typ">int</span> getSum(<span class="typ">int</span> i) {
         <span class="typ">int</span> sum = 0;
-        <span class="kwd">for</span> (; i > 0; i -= i & -i) sum += bit[i];
+        <span class="kwd">for</span> (; i &gt; 0; i -= i & -i) sum += bit[i];
         <span class="kwd">return</span> sum;
     }
 
@@ -1032,7 +1032,7 @@
                     <p>Number of range sums between [lower, upper].</p>
                     <div class="intuition">
                         <strong>Visual Intuition:</strong>
-                        Prefix Sums transform this to: Find pairs <code>(i, j)</code> such that <code>lower <= P[j] - P[i] <= upper</code>.<br>
+                        Prefix Sums transform this to: Find pairs <code>(i, j)</code> such that <code>lower &lt;= P[j] - P[i] &lt;= upper</code>.<br>
                         This is a generalized "Count Inversions" problem.<br>
                         Use Merge Sort. When merging left and right halves of Prefix Sums, count valid pairs across the split.
                     </div>
@@ -1045,24 +1045,24 @@
     <span class="typ">int</span> <span class="fn">countRangeSum</span>(<span class="typ">vector</span>&lt;<span class="typ">int</span>&gt;& nums, <span class="typ">int</span> lower, <span class="typ">int</span> upper) {
         <span class="typ">long</span> n = nums.size();
         <span class="typ">vector</span>&lt;<span class="typ">long</span>&gt; sums(n + 1, 0);
-        <span class="kwd">for</span>(<span class="typ">int</span> i=0; i<n; i++) sums[i+1] = sums[i] + nums[i];
+        <span class="kwd">for</span>(<span class="typ">int</span> i=0; i&lt;n; i++) sums[i+1] = sums[i] + nums[i];
         <span class="kwd">return</span> mergeSort(sums, 0, n, lower, upper);
     }
     
     <span class="typ">int</span> mergeSort(<span class="typ">vector</span>&lt;<span class="typ">long</span>&gt;& sums, <span class="typ">int</span> l, <span class="typ">int</span> r, <span class="typ">int</span> lower, <span class="typ">int</span> upper) {
-        <span class="kwd">if</span>(l >= r) <span class="kwd">return</span> 0;
+        <span class="kwd">if</span>(l &gt;= r) <span class="kwd">return</span> 0;
         <span class="typ">int</span> mid = l + (r - l) / 2;
         <span class="typ">int</span> count = mergeSort(sums, l, mid, lower, upper) + mergeSort(sums, mid+1, r, lower, upper);
         <span class="typ">int</span> j = mid + 1, k = mid + 1, t = mid + 1;
         <span class="typ">vector</span>&lt;<span class="typ">long</span>&gt; cache;
-        <span class="kwd">for</span>(<span class="typ">int</span> i=l; i<=mid; i++) {
-            <span class="kwd">while</span>(k <= r && sums[k] - sums[i] < lower) k++;
-            <span class="kwd">while</span>(j <= r && sums[j] - sums[i] <= upper) j++;
+        <span class="kwd">for</span>(<span class="typ">int</span> i=l; i&lt;=mid; i++) {
+            <span class="kwd">while</span>(k &lt;= r && sums[k] - sums[i] &lt; lower) k++;
+            <span class="kwd">while</span>(j &lt;= r && sums[j] - sums[i] &lt;= upper) j++;
             count += j - k;
-            <span class="kwd">while</span>(t <= r && sums[t] < sums[i]) cache.push_back(sums[t++]);
+            <span class="kwd">while</span>(t &lt;= r && sums[t] &lt; sums[i]) cache.push_back(sums[t++]);
             cache.push_back(sums[i]);
         }
-        <span class="kwd">for</span>(<span class="typ">int</span> i=0; i<cache.size(); i++) sums[l+i] = cache[i];
+        <span class="kwd">for</span>(<span class="typ">int</span> i=0; i&lt;cache.size(); i++) sums[l+i] = cache[i];
         <span class="kwd">return</span> count;
     }
 };
@@ -1073,12 +1073,12 @@
             <!-- Subarray Product Less Than K -->
             <div class="card">
                 <div class="card-body">
-                    <h3><a href="https://leetcode.com/problems/subarray-product-less-than-k/" target="_blank">Subarray Product < K</a> <span class="diff medium">Medium</span></h3>
-                    <p>Count subarrays with product < K.</p>
+                    <h3><a href="https://leetcode.com/problems/subarray-product-less-than-k/" target="_blank">Subarray Product &lt; K</a> <span class="diff medium">Medium</span></h3>
+                    <p>Count subarrays with product &lt; K.</p>
                     <div class="intuition">
                         <strong>Visual Intuition:</strong>
                         Sliding Window. Expand <code>right</code>. Multiply product.<br>
-                        If product >= K, shrink <code>left</code> until product < K.<br>
+                        If product &gt;= K, shrink <code>left</code> until product &lt; K.<br>
                         For a valid window <code>[left...right]</code>, the number of valid subarrays ending at <code>right</code> is <code>right - left + 1</code>.
                     </div>
                 </div>
@@ -1087,11 +1087,11 @@
 <span class="kwd">class</span> Solution {
 <span class="kwd">public</span>:
     <span class="typ">int</span> <span class="fn">numSubarrayProductLessThanK</span>(<span class="typ">vector</span>&lt;<span class="typ">int</span>&gt;& nums, <span class="typ">int</span> k) {
-        <span class="kwd">if</span> (k <= 1) <span class="kwd">return</span> 0;
+        <span class="kwd">if</span> (k &lt;= 1) <span class="kwd">return</span> 0;
         <span class="typ">int</span> prod = 1, l = 0, ans = 0;
-        <span class="kwd">for</span> (<span class="typ">int</span> r = 0; r < nums.size(); r++) {
+        <span class="kwd">for</span> (<span class="typ">int</span> r = 0; r &lt; nums.size(); r++) {
             prod *= nums[r];
-            <span class="kwd">while</span> (prod >= k) prod /= nums[l++];
+            <span class="kwd">while</span> (prod &gt;= k) prod /= nums[l++];
             ans += (r - l + 1);
         }
         <span class="kwd">return</span> ans;
@@ -1120,9 +1120,9 @@
 <span class="kwd">public</span>:
     <span class="typ">vector</span>&lt;<span class="typ">int</span>&gt; <span class="fn">findDuplicates</span>(<span class="typ">vector</span>&lt;<span class="typ">int</span>&gt;& nums) {
         <span class="typ">vector</span>&lt;<span class="typ">int</span>&gt; res;
-        <span class="kwd">for</span>(<span class="typ">int</span> i=0; i<nums.size(); i++) {
+        <span class="kwd">for</span>(<span class="typ">int</span> i=0; i&lt;nums.size(); i++) {
             <span class="typ">int</span> idx = <span class="fn">abs</span>(nums[i]) - 1;
-            <span class="kwd">if</span>(nums[idx] < 0) res.push_back(idx + 1);
+            <span class="kwd">if</span>(nums[idx] &lt; 0) res.push_back(idx + 1);
             <span class="kwd">else</span> nums[idx] = -nums[idx];
         }
         <span class="kwd">return</span> res;
